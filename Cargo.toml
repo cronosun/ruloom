@@ -1,0 +1,20 @@
+[package]
+name = "ruloom"
+version = "0.1.0"
+edition = "2021"
+description = "A thin wrapper around 'corosensei' that provides support for stackful coroutines in Rust (like Loom in Java or goroutines in golang)."
+documentation = "https://docs.rs/ruloom"
+readme = "README.md"
+repository = "https://github.com/cronosun/ruloom"
+license = "MIT OR Apache-2.0"
+keywords = ["coroutine", "fiber", "async"]
+categories = ["asynchronous", "concurrency"]
+
+[dependencies]
+corosensei = "0.2.1"
+pin-project-lite = "0.2.15"
+
+[dev-dependencies]
+smol = { version = "2"}
+smol-macros = { version = "0.1"}
+macro_rules_attribute = "0.2.0"
