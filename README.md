@@ -1,4 +1,6 @@
-# Rust-Loom (ru-loom)
+# Rust-Loom (ruloom)
+
+![status](https://img.shields.io/github/actions/workflow/status/cronosun/ruloom/rust.yml)
 
 It is a Crate, which is intended to simplify asynchronous programming. You can write asynchronous code as if it 
 were synchronous code. The name is a combination of "Rust" (ru) and "Loom"
@@ -28,9 +30,9 @@ In my opinion, Rust should have taken a different path:
  * In addition, Rust should support stackful coroutines (aka Fibers, similar to Go routines or Loom in Java).
    The std-lib should be prepared for this (can be switched on with a feature flag). 
 
-# What does `ro-loom` solve?
+# What does `ruloom` solve?
 
-Ru-loom is based on [corosensei](https://crates.io/crates/corosensei) and allows asynchronous code to be written as if it were synchronous code.
+Ruloom is based on [corosensei](https://crates.io/crates/corosensei) and allows asynchronous code to be written as if it were synchronous code.
 
 ```rust
 // See, no 'async' keyword here.
@@ -52,14 +54,14 @@ fn run()  {
 }
 ```
 
-The two main functions of `ru-rust` are:
+The two main functions of `ruloom` are:
 
  * `await_future`: Converts a future into a synchronous call. May only be used within
    `to_future`. Technical detail: If the future is pending, the current coroutine is suspended (stack switch).
  * `to_future`: Converts a synchronous function into a future. This future can then be executed
    by the selected runtime (Tokio, Smol, ...).
 
-# What problems does `ru-loom` not solve?
+# What problems does `ruloom` not solve?
 
 It still does not offer a std-library, you still have a dependency on a certain runtime (like Tokio or Smol). 
 
@@ -69,7 +71,7 @@ Also, `ru-rust` is (currently) an experiment; it is certainly not advisable to u
 
 # Credits
 
- * 99.9% of the hard work is done by [corosensei](https://crates.io/crates/corosensei), `ru-loom` is just a thin wrapper around this library.
+ * 99.9% of the hard work is done by [corosensei](https://crates.io/crates/corosensei), `ruloom` is just a thin wrapper around this library.
 
 # License
 

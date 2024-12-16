@@ -1,15 +1,13 @@
+use crate::tests::counter::Counter;
 use macro_rules_attribute::apply;
 use smol_macros::{test, Executor};
-use std::{
-    sync::{atomic::AtomicU32, Arc},
-    time::Duration,
-};
+use std::time::Duration;
 
 use crate::{await_future, to_future};
 
 #[apply(test!)]
 async fn await_works(ex: &Executor<'_>) {
-    let call_counter = CallCounter::default();
+    let call_counter = Counter::default();
     let mut tasks = vec![];
     for _ in 0..10 {
         let local_call_counter = call_counter.clone();
@@ -26,7 +24,7 @@ async fn await_works(ex: &Executor<'_>) {
 
 #[apply(test!)]
 async fn does_not_block(ex: &Executor<'_>) {
-    let call_counter = CallCounter::default();
+    let call_counter = Counter::default();
     let mut tasks = vec![];
     let start_time = std::time::Instant::now();
     for _ in 0..5000 {
@@ -53,7 +51,7 @@ async fn does_not_block(ex: &Executor<'_>) {
 #[should_panic]
 async fn panics_when_not_in_to_future() {
     // This works
-    let call_counter = CallCounter::default();
+    let call_counter = Counter::default();
     let cloned_call_counter = call_counter.clone();
     to_future(|| async_function(cloned_call_counter)).await;
     assert_eq!(2, call_counter.count());
@@ -62,24 +60,8 @@ async fn panics_when_not_in_to_future() {
     async_function(call_counter);
 }
 
-fn async_function(call_counter: CallCounter) {
+fn async_function(call_counter: Counter) {
     call_counter.increment();
     await_future(smol::Timer::after(Duration::from_millis(10)));
     call_counter.increment();
-}
-
-#[derive(Clone, Default)]
-struct CallCounter {
-    counter: Arc<AtomicU32>,
-}
-
-impl CallCounter {
-    pub fn increment(&self) {
-        self.counter
-            .fetch_add(1, std::sync::atomic::Ordering::SeqCst);
-    }
-
-    pub fn count(&self) -> u32 {
-        self.counter.load(std::sync::atomic::Ordering::SeqCst)
-    }
 }
