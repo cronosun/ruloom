@@ -67,7 +67,7 @@ It still does not offer a std-library, you still have a dependency on a certain 
 
 Furthermore, you have to be careful not to call any blocking functions.
 
-Also, `ru-rust` is (currently) an experiment; it is certainly not advisable to use this code in production.
+Also, `ruloom` is (currently) an experiment; it is certainly not advisable to use this code in production.
 
 # Credits
 

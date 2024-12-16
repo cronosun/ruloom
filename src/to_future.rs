@@ -39,13 +39,6 @@ where
     }
 }
 
-unsafe impl<R, F> Send for CoroutineFuture<F, R>
-where
-    F: Send,
-    R: Send,
-{
-}
-
 impl<R, F> Future for CoroutineFuture<R, F>
 where
     F: FnOnce() -> R + 'static,

@@ -1,6 +1,6 @@
 [package]
 name = "ruloom"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "A thin wrapper around 'corosensei' that provides support for stackful coroutines in Rust (like Loom in Java or goroutines in golang)."
 documentation = "https://docs.rs/ruloom"

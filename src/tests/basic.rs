@@ -1,12 +1,12 @@
 use crate::tests::counter::Counter;
+use crate::{await_future, to_future};
 use macro_rules_attribute::apply;
-use smol_macros::{test, Executor};
+use smol::LocalExecutor;
+use smol_macros::test;
 use std::time::Duration;
 
-use crate::{await_future, to_future};
-
 #[apply(test!)]
-async fn await_works(ex: &Executor<'_>) {
+async fn await_works(ex: &LocalExecutor<'_>) {
     let call_counter = Counter::default();
     let mut tasks = vec![];
     for _ in 0..10 {
@@ -23,7 +23,7 @@ async fn await_works(ex: &Executor<'_>) {
 }
 
 #[apply(test!)]
-async fn does_not_block(ex: &Executor<'_>) {
+async fn does_not_block(ex: &LocalExecutor<'_>) {
     let call_counter = Counter::default();
     let mut tasks = vec![];
     let start_time = std::time::Instant::now();
